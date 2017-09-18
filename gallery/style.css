@@ -2,3 +2,15 @@ body {
     min-height: 75rem;
     padding-top: 4.5rem;
     }
+.jumbotron{
+    color: #1779DB;
+}
+.navbar-inverse{
+    color: #1779DB;
+}
+.navbar-inverse .navbar-nav .nav-link{
+    color: white;
+}
+.navbar-inverse .navbar-brand{
+    color: white;
+}

@@ -1,0 +1,36 @@
+<header id="page-header">
+    <h1>Agencies</h1>
+    <div ncy-breadcrumb></div>
+</header>
+
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <span class="elipsis">
+								    <strong>Search</strong>
+						    </span>
+            </div>
+            <div class="panel-body">
+                <form class="form-inline text-center">
+                    <div class="form-group">
+                            <div>
+                              
+                                <input type="text" ng-model="$ctrl.searchInput" placeholder="Search agencies..." uib-typeahead="agency for agency in $ctrl.searchAgencies($viewValue)"
+                                typeahead-min-length="2" typeahead-loading="loadingAgencies" typeahead-no-results="noResults" class="form-control"
+                                typeahead-on-select="$ctrl.onSelect()">
+                                    
+                                    <i ng-show="loadingAgencies" class="glyphicon glyphicon-refresh"></i>
+                                <div ng-show="noResults">
+                                    <i class="glyphicon glyphicon-remove"></i> No Results Found
+                                </div>
+                            </div>
+                    </div>
+                 </form>
+                  <div>
+                      <agencies-list agencies="$ctrl.agencies"></agencies-list>
+                   </div>
+            </div>
+        </div>
+    </div>
+</div>

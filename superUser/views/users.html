@@ -1,0 +1,127 @@
+
+<header id="page-header">
+    <h1>User Management</h1>
+    <div ncy-breadcrumb></div>
+</header>
+
+<div class="row" id="userForm">
+    <div class="col-lg-6 col-md-6 col-sm-12">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <form class="user-management-form" name="userInfoForm" novalidate>
+                    <fieldset>
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="col-lg-6 col-md-6 col-sm-12">
+                                    <label class="control-label" for="firstName">First Name *</label>
+                                    <input type="text" ng-model="$ctrl.formData.firstName" class="form-control" ng-class="{'error' : userInfoForm.firstName.$invalid && !userInfoForm.$pristine}" id="firstName" name="firstName" placeholder="First Name" required>
+                                    <p ng-show="userInfoForm.firstName.$error.required && !userInfoForm.$pristine" class="help-block">A first name is required</p>
+                                </div>
+                                
+                                <div class="col-lg-6 col-md-6 col-sm-12">
+                                    <label class="control-label" for="lastName">Last Name *</label>
+                                    <input type="text" ng-model="$ctrl.formData.lastName" class="form-control" ng-class="{'error' : userInfoForm.lastName.$invalid && !userInfoForm.$pristine}" id="lastName" name="lastName" placeholder="Last Name" required>
+                                    <p ng-show="userInfoForm.lastName.$error.required && !userInfoForm.$pristine" class="help-block">A last name is required</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <label class="control-label" for="email">Email *</label>
+                                    <input type="email" ng-model="$ctrl.formData.local.email" class="form-control" ng-class="{'error' : userInfoForm.email.$invalid && !userInfoForm.$pristine}" id="email" name="email" placeholder="Email" required>
+                                    <p ng-show="userInfoForm.email.$error.required && !userInfoForm.$pristine" class="help-block">An email address is required</p>
+                                    <p ng-show="userInfoForm.email.$error.email" class="help-block">Invalid email address</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="col-lg-6 col-md-6 col-sm-12">
+                                    <label class="control-label" for="role">Role</label>
+                                    <select ng-model="$ctrl.formData.role" ng-options="role for (key, role) in $ctrl.roles" class="form-control" ng-class="{'error' : userInfoForm.role.$invalid && !userInfoForm.$pristine}" id="role" name="role" required></select>
+                                    <p ng-show="userInfoForm.role.$error.required && !userInfoForm.$pristine" class="help-block">A role is required</p>
+                                </div>
+
+                                <div class="col-lg-6 col-md-6 col-sm-12">
+                                    <label class="control-label" for="agency">Agency</label>
+                                    <select ng-model="$ctrl.agencyName" 
+                                            ng-options="agency.name as agency.name for agency in $ctrl.agency" ng-change="$ctrl.setAgency($ctrl.agencyName)"
+                                            class="form-control" ng-class="{'error' : userInfoForm.agency.$invalid && !userInfoForm.$pristine}" id="agency" name="agency" required>
+                                    </select>
+                                    <p ng-show="userInfoForm.agency.$error.required && !userInfoForm.$pristine" class="help-block">An agency is required</p>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                    
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <button type="button" ng-click="$ctrl.updateInfo(userInfoForm.$valid)" ng-disabled="userInfoForm.$invalid || !$ctrl.formData._id" class="btn btn-primary">Update</button>
+                        </div>
+                    </div>
+                </form>
+
+                <form class="user-management-form" name="userPasswordForm" novalidate>
+                    <fieldset>
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <label class="control-label" for="password">Password</label>
+                                    <input type="password" ng-model="$ctrl.formData.local.password" class="form-control" ng-class="{'error' : userPasswordForm.password.$invalid && !userPasswordForm.$pristine}" id="password" name="password" placeholder="Password" required>
+                                    <p ng-show="userPasswordForm.password.$error.required && !userPasswordForm.$pristine" class="help-block">A password is required</p>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                    
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <button type="button" ng-click="$ctrl.updatePassword(userInfoForm.$valid && userPasswordForm.$valid && $ctrl.formData._id)" ng-disabled="userInfoForm.$invalid || userPasswordForm.$invalid || !$ctrl.formData._id" class="btn btn-primary">Change Password</button>
+                            <button type="button" ng-click="$ctrl.insert(userInfoForm.$valid && userPasswordForm.$valid)" ng-disabled="userInfoForm.$invalid || userPasswordForm.$invalid || $ctrl.formData._id" class="btn btn-primary">Create User</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <table class="user-management-table table table-bordered table-hover table-responsive text-center">
+                    <thead>
+                        <tr>
+                            <th class="text-center">First Name</th>
+                            <th class="text-center">Last Name</th>
+                            <th class="text-center">Email</th>
+                            <th class="text-center">Role</th>
+                            <th class="text-center">Agency</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="user in $ctrl.users">
+                            <td>{{ user.firstName }}</td>
+                            <td>{{ user.lastName }}</td>
+                            <td>{{ user.local.email }}</td>
+                            <td>{{ user.role }}</td>
+                            <td>{{ user.agency.agencyNameId }}</td>
+                            <td>
+                                <a href="#" ng-click="$ctrl.agencyName= user.agency.name;$ctrl.populateForm(user);
+                               $ctrl.setAgency($ctrl.agencyName)" class="btn btn-default"><i class="fa fa-edit white"></i>Edit</button>
+                                <a href="#" ng-click="$ctrl.remove(user._id)" class="btn btn-default"><i class="fa fa-times white"></i>Delete</button>
+
+                                
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

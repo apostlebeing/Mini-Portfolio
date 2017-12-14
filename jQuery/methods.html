@@ -3,23 +3,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>jQuery Home</title>
     <script
     src="https://code.jquery.com/jquery-2.2.4.min.js"
     integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
     crossorigin="anonymous"></script>
+    <style type="text/css">
+        .container {
+            display: grid;
+            grid-template-columns: 120px 120px 120px;
+            grid-template-rows: 140px;
+        }
+        .item {
+            width: 100px;
+            height: 100px;
+            background: teal;
+            margin: 20px;
+            /* display: none; */
+        }
+        
+    </style>
+
 </head>
 <body>
-    <h1>jQuery Methods Demo Page</h1>
-    <input type="text" name="yourName" id="name" placeholder="Your Name">
 
-    <ul>
-        <li>Skittles</li>
-        <li>Starburst</li>
-        <li>Twix</li>
-    </ul>
-    <img src="https://i.imgur.com/iMLFNM6.jpg" alt="Emilia Clarke image">
-    <img src="https://i.imgur.com/kdGSYs1.jpg" alt="Kate Upton image">
-    <img src="https://i.imgur.com/PI5fBIM.jpg" alt="Amy Adams image">
+    
+    <div class="container">
+        <div class="item">asdf</div>
+        <div class="item">asddf</div>
+        <div class="item">asdfasd</div>
+    </div>
+    <button>Click Me</button>
+    
+    <script type="text/javascript" src="effects.js"></script>
 </body>
 </html>
